@@ -1,0 +1,136 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 20px; /* Add some space below title */
+}
+
+#simulation-area {
+    display: flex;
+    flex-direction: row; /* Grid left, Right column right */
+    align-items: flex-start;
+    gap: 30px; /* Space between grid and right column */
+    width: 95%;
+    max-width: 1000px; /* Adjusted max width */
+    justify-content: center;
+}
+
+/* --- Left Side --- */
+#grid-container {
+    display: grid;
+    width: 500px; /* Fixed */
+    height: 500px; /* Fixed */
+    /* grid-template-columns/rows set in JS */
+    border: 1px solid #ccc;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+}
+
+.cell {
+    /* width/height set dynamically in JS */
+    border: 1px solid #f0f0f0;
+    box-sizing: border-box;
+}
+
+.unvisited { background-color: white; }
+.visited { background-color: black; }
+.walker { background-color: red; }
+
+
+/* --- Right Side Column --- */
+#right-column {
+    display: flex;
+    flex-direction: column; /* Stack chart and controls vertically */
+    gap: 20px; /* Space between chart and control panel */
+    flex-grow: 1; /* Allow it to take remaining horizontal space */
+    /* Max width is constrained by chart/panel max-width */
+    min-width: 300px; /* Minimum width */
+}
+
+/* Chart Container (Top Right) */
+#chart-container {
+    /* No flex-grow needed if right-column handles width */
+    min-width: 250px;
+    max-width: 420px; /* Keep reduced width */
+    width: 100%; /* Take width of right-column */
+    border: 1px solid #ddd;
+    padding: 15px;
+    background-color: white;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    border-radius: 5px;
+    /* Height set dynamically in JS */
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box; /* Include padding/border in width/height */
+}
+
+#chart-container h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: #333;
+    flex-shrink: 0;
+}
+
+#visited-chart {
+    position: relative;
+    width: 100% !important;
+    flex-grow: 1;
+}
+
+/* Control Panel Box (Bottom Right) */
+#control-panel {
+    border: 1px solid #ccc;
+    background-color: #f9f9f9; /* Light background */
+    padding: 20px;
+    border-radius: 8px; /* Soft edges */
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    width: 100%; /* Take width of right-column */
+    max-width: 420px; /* Match chart max-width */
+    box-sizing: border-box; /* Include padding/border in width */
+}
+
+/* Controls inside the Panel */
+#controls {
+    /* Remove top margin, panel provides spacing */
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center rows */
+    gap: 15px; /* Increased gap between rows */
+}
+
+.control-row {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center items within the row */
+    gap: 15px;
+    width: 100%; /* Make rows take full width of controls */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* Buttons: Green, Wider */
+#controls button {
+    font-size: 1.5em;
+    padding: 8px 25px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #8FBC8F; /* DarkSeaGreen */
+    color: white;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+}
+#controls button:hover { background-color: #3CB371; }
+#controls button:active { background-color: #2E8B57; transform: translateY(1px); box-shadow: none; }
+#controls button:disabled { background-color: #cccccc; color: #888888; cursor: not-allowed; box-shadow: none; transform: none; }
+
+.control-row label { font-size: 0.9em; margin-left: 5px; /* Reduced margin */ }
+.control-row input[type="number"] { width: 60px; padding: 5px; font-size: 0.9em; border: 1px solid #ccc; border-radius: 3px; }
